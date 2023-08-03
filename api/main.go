@@ -1,6 +1,8 @@
 package main
 
 import (
+	"api/src/config"
+	"api/src/database"
 	"api/src/router"
 	"fmt"
 	"log"
@@ -8,9 +10,11 @@ import (
 )
 
 func main() {
+	config.Loading()
+	database.DBConnection()
 	fmt.Println("rodando api")
 
 	r  := router.Gerar()
 
-	log.Fatal(http.ListenAndServe(":5000", r))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", config.Port), r))
 }
